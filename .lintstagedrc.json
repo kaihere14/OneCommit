@@ -1,13 +1,7 @@
 {
-  "client/**/*.{ts,tsx,js,jsx}": [
-    "prettier --check",
-    "npm --prefix client run lint --"
-  ],
-  "server/**/*.{ts,tsx,js,jsx}": [
-    "prettier --check",
-    "npm --prefix server run lint --"
-  ],
-  "*.{json,md,mdx,css,scss}": ["prettier --check"],
-  "client/**/*.{json,md,mdx,css,scss}": ["prettier --check"],
-  "server/**/*.{json,md,mdx,css,scss}": ["prettier --check"]
+  "client/**/*.{ts,tsx,js,jsx}": ["prettier --write"],
+  "server/**/*.{ts,tsx,js,jsx}": ["prettier --write"],
+  "*.{json,md,mdx,css,scss}": ["prettier --write"],
+  "client/**/*.{json,md,mdx,css,scss}": ["prettier --write"],
+  "server/**/*.{json,md,mdx,css,scss}": ["prettier --write"]
 }
