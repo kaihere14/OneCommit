@@ -1,0 +1,10 @@
+{
+  "name": "OneCommit",
+  "description": "Helps developers maintain their GitHub commit streak by sending smart reminders and suggesting small, actionable commits when no activity is detected.",
+  "version": "0.0.1",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "./ui/index.html",
+    "default_icon": "./assets/logo.webp"
+  }
+}
