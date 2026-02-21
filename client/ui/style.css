@@ -87,6 +87,10 @@ main {
   font-size: 14px;
   font-weight: normal;
 }
+#streak-count {
+  font-size: 64px;
+  font-weight: bold;
+}
 .hero .msg {
   background-color: rgba(239, 68, 68, 0.4);
   border: 1px solid rgba(239, 68, 68, 0.3);
@@ -193,4 +197,272 @@ main {
   color: rgba(128, 128, 128, 0.7);
   gap: 3px;
   padding-bottom: 10px;
+}
+
+/* Loading section */
+#loading-section {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: var(--blue-shade);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Success state ─────────────────────────────── */
+#success-content {
+  display: none;
+  flex-direction: column;
+}
+
+.sc-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 28px 20px 20px;
+  gap: 10px;
+}
+.sc-check-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid #10b981;
+  background: rgba(16, 185, 129, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sc-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+.sc-streak {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.sc-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 0 12px;
+}
+
+.sc-body {
+  padding: 16px;
+}
+.sc-card {
+  background: linear-gradient(
+    135deg,
+    rgba(16, 185, 129, 0.18) 0%,
+    rgba(25, 127, 230, 0.18) 100%
+  );
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 14px;
+  padding: 24px 20px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.sc-badge {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(25, 127, 230, 0.18);
+  border: 1px solid rgba(25, 127, 230, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+.sc-card-msg {
+  font-size: 15px;
+  text-align: center;
+}
+.sc-reminder {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.sc-footer {
+  padding: 12px 16px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sc-github-btn {
+  flex: 1;
+  background-color: var(--blue-shade);
+  color: var(--text-color);
+  border: none;
+  border-radius: 10px;
+  padding: 11px 16px;
+  font-family: "stage";
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.sc-github-btn:hover {
+  opacity: 0.85;
+}
+.sc-settings {
+  cursor: pointer;
+  opacity: 0.5;
+}
+.sc-settings:hover {
+  opacity: 1;
+}
+
+/* ── Pending state ─────────────────────────────── */
+#pending-content {
+  display: none;
+  flex-direction: column;
+}
+.pc-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 28px 20px 20px;
+  gap: 10px;
+}
+.pc-warn-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid #fb923c;
+  background: rgba(251, 146, 60, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pc-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+.pc-streak {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.75);
+}
+.pc-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 0 12px;
+}
+.pc-body {
+  padding: 16px;
+}
+.pc-card {
+  background: linear-gradient(
+    135deg,
+    rgba(251, 146, 60, 0.18) 0%,
+    rgba(239, 68, 68, 0.12) 100%
+  );
+  border: 1px solid rgba(251, 146, 60, 0.25);
+  border-radius: 14px;
+  padding: 24px 20px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.pc-badge {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(251, 146, 60, 0.15);
+  border: 1px solid rgba(251, 146, 60, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+.pc-card-msg {
+  font-size: 15px;
+  text-align: center;
+}
+.pc-reminder {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.35);
+  text-align: center;
+}
+.pc-details-btn {
+  width: 100%;
+  margin-top: 6px;
+  background: rgba(251, 146, 60, 0.2);
+  border: 1px solid rgba(251, 146, 60, 0.35);
+  color: var(--text-color);
+  border-radius: 8px;
+  padding: 9px;
+  font-family: "stage";
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.pc-details-btn:hover {
+  background: rgba(251, 146, 60, 0.3);
+}
+.pc-footer {
+  padding: 12px 16px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Login section */
+#login-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  gap: 16px;
+  min-height: 300px;
+}
+#login-section img {
+  width: 56px;
+}
+#login-section h1 {
+  font-size: 22px;
+}
+.login-subtitle {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+#login-btn {
+  margin-top: 8px;
+  background-color: var(--blue-shade);
+  color: var(--text-color);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-family: "stage";
+  font-size: 14px;
+  cursor: pointer;
+}
+#login-btn:hover {
+  opacity: 0.85;
+}
+
+/* Committed today variant */
+.hero .msg.success {
+  background-color: rgba(16, 185, 129, 0.2);
+  border-color: rgba(16, 185, 129, 0.4);
 }

@@ -3,6 +3,7 @@ import "dotenv/config";
 import express from "express";
 
 import authRoutes from "./routes/auth.routes.js";
+import gitRoutes from "./routes/git.routes.js";
 import { connectDB } from "./utils/connectDB.js";
 
 const app = express();
@@ -17,6 +18,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1/auth/", authRoutes);
+app.use("/api/v1/git/", gitRoutes);
+
+app.get("/auth/success", (_req, res) => {
+  res.send(
+    `<!DOCTYPE html><html><head><title>OneCommit</title></head><body>
+    <p>Login successful! This tab will close automatically.</p>
+    </body></html>`
+  );
+});
 
 app.get("/", (req, res) => {
   res.send("OneCommit Server is running!");

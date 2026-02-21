@@ -13,7 +13,7 @@ export const verifyJWT = (req: Request, res: Response, next: NextFunction) => {
       if (err) {
         return res.status(403).json({ message: "Forbidden" });
       }
-      req.userId = decoded as JwtPayload | string;
+      req.userId = (decoded as JwtPayload).userId;
       next();
     });
   } catch (error) {

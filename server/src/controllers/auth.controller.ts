@@ -71,26 +71,28 @@ export const gitCallback = async (req: Request, res: Response) => {
     );
     const data = tokenRes.data;
 
-    const userRes = await axios.get("https://api.github.com/user", {
-      headers: {
-        Authorization: `token ${data.access_token}`,
-      },
-    });
+    const [userRes, emailsRes] = await Promise.all([
+      axios.get("https://api.github.com/user", {
+        headers: { Authorization: `token ${data.access_token}` },
+      }),
+      axios.get("https://api.github.com/user/emails", {
+        headers: { Authorization: `token ${data.access_token}` },
+      }),
+    ]);
     const userData: any = userRes.data;
+    const emails: { email: string; primary: boolean; verified: boolean }[] =
+      emailsRes.data;
+    const primaryEmail =
+      emails.find((e) => e.primary && e.verified)?.email ?? emails[0]?.email;
+
     const user = await User.findOne({ gitHubId: userData.id });
     if (user) {
-      return res.status(200).json({
-        message: "User already exists",
-        user,
-        token: await createJwtToken(user._id.toString()),
-      });
+      const token = await createJwtToken(user._id.toString());
+      return res.redirect(`http://localhost:3000/auth/success?token=${token}`);
     }
-    const newUser = await createUser(userData, data);
-    return res.status(200).json({
-      message: "User created successfully",
-      user: newUser,
-      token: await createJwtToken(newUser._id.toString()),
-    });
+    const newUser = await createUser(userData, data, primaryEmail);
+    const token = await createJwtToken(newUser._id.toString());
+    return res.redirect(`http://localhost:3000/auth/success?token=${token}`);
   } catch (error: any) {
     console.log(error);
     return res.status(500).json({
@@ -99,13 +101,19 @@ export const gitCallback = async (req: Request, res: Response) => {
   }
 };
 
-const createUser = async (userData: any, data: any) => {
+const createUser = async (
+  userData: any,
+  data: any,
+  email: string | undefined
+) => {
   const user = await User.create({
     name: userData.name,
+    userName: userData.login,
     gitHubId: userData.id,
     accessToken: accessEncryption(data.access_token),
     commitedToday: false,
     avatarUrl: userData.avatar_url,
+    email: email ?? "",
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   });
@@ -114,9 +122,7 @@ const createUser = async (userData: any, data: any) => {
 
 export const getUser = async (req: Request, res: Response) => {
   try {
-    // const userId = req.userId;
-    const userId = req;
-    console.log(req);
+    const userId = req.userId;
     const user = await User.findById(userId);
     return res.status(200).json({
       message: "User fetched successfully",

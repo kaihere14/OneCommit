@@ -3,74 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>OneCommit</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <main>
-        <div class="header">
-            <div class="left">
-                <div class="logo">
-                    <img src="../assets/Overlay.svg" alt="">
+
+        <!-- Loading state -->
+        <div id="loading-section">
+            <div class="spinner"></div>
+        </div>
+
+        <!-- Login state -->
+        <div id="login-section">
+            <img src="../assets/Overlay.svg" alt="">
+            <h1>OneCommit</h1>
+            <p class="login-subtitle">Track your GitHub commit streak</p>
+            <button id="login-btn">Login with GitHub</button>
+        </div>
+
+        <!-- Success state (committed today) -->
+        <div id="success-content" style="display:none;">
+            <div class="sc-top">
+                <div class="sc-check-circle">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
                 </div>
-                <div class="title">
-                    <h1>OneCommit</h1>
-                </div>
+                <h2 class="sc-title">Commit done today</h2>
+                <p class="sc-streak">🔥 Current streak: <strong id="success-streak-count">0</strong> days</p>
             </div>
-            <div class="right">
-                <div class="status">
-                    <div class="dot"></div>
-                    <div class="text">
-                        <p>Pending</p>
+
+            <div class="sc-divider"></div>
+
+            <div class="sc-body">
+                <div class="sc-card">
+                    <div class="sc-badge">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#197fe6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2l2.4 4.9 5.6.8-4 3.9.9 5.4L12 14.8l-4.9 2.2.9-5.4-4-3.9 5.6-.8z"/>
+                            <polyline points="9 12 11 14 15 10"></polyline>
+                        </svg>
                     </div>
+                    <p class="sc-card-msg">You're done for today. Nice work.</p>
+                    <p class="sc-reminder">🔔 No reminders scheduled today</p>
                 </div>
             </div>
-        </div>
 
-        <div class="hero">
-            <p class="subtitle">
-                Current Streak
-            </p>
-            <div class="count">
-                <h2>0<span>days</span></h2>
-            </div>
-            <div class="msg">
-                <img src="../assets/Icon.svg" alt="">
-                <p>No commit today</p>
-            </div>
-            <div class="reminder">
-                <img src="../assets/watch.svg" alt="">
-                <p>Reminder set for 10:00 PM</p>
+            <div class="sc-footer">
+                <button class="sc-github-btn" id="sc-github-btn">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                        <polyline points="15 3 21 3 21 9"/>
+                        <line x1="10" y1="14" x2="21" y2="3"/>
+                    </svg>
+                    Open GitHub
+                </button>
+                <img src="../assets/setting.svg" alt="Settings" class="sc-settings">
             </div>
         </div>
 
-        <div class="suggestion">
-            <div class="title">
-                <p>SUGGESTED QUICK COMMIT</p>
-                <p><img src="../assets/refresh.svg" alt=""></p>
-            </div>
-            <div class="content">
-                <div class="left">
-                    <p class="main">Update README.md</p>
-                    <p class="repo">repo : personal-website-v2</p>
+        <!-- Pending state (no commit yet) -->
+        <div id="pending-content" style="display:none;">
+            <div class="pc-top">
+                <div class="pc-warn-circle">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fb923c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="8" x2="12" y2="12"/>
+                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                    </svg>
                 </div>
-                <div class="right">
-                    <img src="../assets/push.svg" alt="">
+                <h2 class="pc-title">No commit today</h2>
+                <p class="pc-streak">🔥 Current streak: <strong id="pending-streak-count">0</strong> days</p>
+            </div>
+
+            <div class="pc-divider"></div>
+
+            <div class="pc-body">
+                <div class="pc-card">
+                    <div class="pc-badge">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fb923c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                            <line x1="12" y1="9" x2="12" y2="13"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                    </div>
+                    <p class="pc-card-msg">Your streak is at risk!</p>
+                    <p class="pc-reminder">⏰ Commit before midnight to keep it alive</p>
+                    <button class="pc-details-btn" id="pc-github-btn">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                            <polyline points="15 3 21 3 21 9"/>
+                            <line x1="10" y1="14" x2="21" y2="3"/>
+                        </svg>
+                        Push a commit now
+                    </button>
                 </div>
+            </div>
+
+            <div class="pc-footer">
+                <button class="sc-github-btn" id="pc-open-github-btn">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                        <polyline points="15 3 21 3 21 9"/>
+                        <line x1="10" y1="14" x2="21" y2="3"/>
+                    </svg>
+                    Open GitHub
+                </button>
+                <img src="../assets/setting.svg" alt="Settings" class="sc-settings">
             </div>
         </div>
 
-        <div class="redirect">
-            <p>
-                <img src="../assets/redirect.svg" alt="">
-                <p>Open in GitHub</p>
-            </p>
-        </div>
-
-        <div class="setting">
-            <img src="../assets/setting.svg" alt="">
-            <p>Settings</p>
-        </div>
     </main>
+    <script src="script.js"></script>
 </body>
 </html>
