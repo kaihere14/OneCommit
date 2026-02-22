@@ -8,6 +8,8 @@ export interface IUser extends Document {
   commitedToday: boolean;
   avatarUrl: string;
   email: string;
+  streak: number;
+  lastReminderSentAt: Date | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -20,6 +22,8 @@ const userSchema = new Schema<IUser>({
   commitedToday: { type: Boolean, required: true },
   avatarUrl: { type: String, required: true },
   email: { type: String, required: true },
+  streak: { type: Number, default: 0 },
+  lastReminderSentAt: { type: Date, default: null },
   createdAt: { type: Date, required: true },
   updatedAt: { type: Date, required: true },
 });
