@@ -19,6 +19,13 @@
             <img src="../assets/Overlay.svg" alt="">
             <h1>OneCommit</h1>
             <p class="login-subtitle">Track your GitHub commit streak</p>
+            <label class="private-toggle">
+                <input type="checkbox" id="private-repo-toggle">
+                <span class="toggle-track">
+                    <span class="toggle-thumb"></span>
+                </span>
+                <span class="toggle-text">Include private repos</span>
+            </label>
             <button id="login-btn">Login with GitHub</button>
         </div>
 
@@ -58,7 +65,16 @@
                     </svg>
                     Open GitHub
                 </button>
-                <img src="../assets/setting.svg" alt="Settings" class="sc-settings">
+                <div class="footer-icons">
+                    <img src="../assets/setting.svg" alt="Settings" class="sc-settings">
+                    <button class="logout-btn" id="sc-logout-btn" title="Sign out">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                            <polyline points="16 17 21 12 16 7"/>
+                            <line x1="21" y1="12" x2="9" y2="12"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -109,7 +125,16 @@
                     </svg>
                     Open GitHub
                 </button>
-                <img src="../assets/setting.svg" alt="Settings" class="sc-settings">
+                <div class="footer-icons">
+                    <img src="../assets/setting.svg" alt="Settings" class="sc-settings">
+                    <button class="logout-btn" id="pc-logout-btn" title="Sign out">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                            <polyline points="16 17 21 12 16 7"/>
+                            <line x1="21" y1="12" x2="9" y2="12"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
 

@@ -58,9 +58,30 @@ function showMain(data) {
   }
 }
 
-document.getElementById("login-btn").addEventListener("click", () => {
-  chrome.tabs.create({ url: `${API}/auth/git-login` });
+const privateToggle = document.getElementById("private-repo-toggle");
+
+chrome.storage.local.get(["includePrivate"], (result) => {
+  privateToggle.checked = result.includePrivate ?? false;
 });
+
+privateToggle.addEventListener("change", () => {
+  chrome.storage.local.set({ includePrivate: privateToggle.checked });
+});
+
+document.getElementById("login-btn").addEventListener("click", () => {
+  const includePrivate = privateToggle.checked;
+  chrome.tabs.create({
+    url: `${API}/auth/git-login?includePrivate=${includePrivate}`,
+  });
+});
+
+function logout() {
+  chrome.storage.local.remove("token");
+  showLogin();
+}
+
+document.getElementById("sc-logout-btn").addEventListener("click", logout);
+document.getElementById("pc-logout-btn").addEventListener("click", logout);
 
 document.getElementById("sc-github-btn").addEventListener("click", () => {
   chrome.tabs.create({ url: "https://github.com" });
@@ -91,8 +112,12 @@ async function init() {
 }
 
 chrome.storage.onChanged.addListener((changes) => {
-  if (changes.token?.newValue) {
-    init();
+  if ("token" in changes) {
+    if (changes.token.newValue) {
+      init();
+    } else {
+      showLogin();
+    }
   }
 });
 

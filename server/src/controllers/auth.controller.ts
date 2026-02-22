@@ -11,7 +11,9 @@ const callbackUri = process.env.GITHUB_CALLBACK_URI as string;
 const encryptionKey = process.env.ENCRYPTION_KEY as string; // 64-char hex string (32 bytes)
 
 export const gitRedirect = async (req: Request, res: Response) => {
-  const url = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${callbackUri}&scope=user:email,repo`;
+  const includePrivate = req.query.includePrivate === "true";
+  const scope = includePrivate ? "user:email,repo" : "user:email,public_repo";
+  const url = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${callbackUri}&scope=${scope}`;
   return res.redirect(url);
 };
 

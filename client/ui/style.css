@@ -319,12 +319,35 @@ main {
 .sc-github-btn:hover {
   opacity: 0.85;
 }
+.footer-icons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 .sc-settings {
   cursor: pointer;
   opacity: 0.5;
 }
 .sc-settings:hover {
   opacity: 1;
+}
+.logout-btn {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition:
+    color 0.15s,
+    background 0.15s;
+}
+.logout-btn:hover {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
 }
 
 /* ── Pending state ─────────────────────────────── */
@@ -445,6 +468,52 @@ main {
   font-size: 13px;
   color: rgba(255, 255, 255, 0.5);
   text-align: center;
+}
+.private-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+.private-toggle input {
+  display: none;
+}
+.toggle-track {
+  width: 36px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  position: relative;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+  flex-shrink: 0;
+}
+.toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  transition:
+    transform 0.2s,
+    background 0.2s;
+}
+.private-toggle input:checked + .toggle-track {
+  background: rgba(25, 127, 230, 0.4);
+  border-color: var(--blue-shade);
+}
+.private-toggle input:checked + .toggle-track .toggle-thumb {
+  transform: translateX(16px);
+  background: var(--blue-shade);
+}
+.toggle-text {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
 }
 #login-btn {
   margin-top: 8px;
