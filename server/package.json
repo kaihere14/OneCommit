@@ -6,6 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon",
+    "build": "tsc",
+    "start": "node dist/index.js",
     "lint": "prettier --write .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
