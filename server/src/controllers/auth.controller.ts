@@ -107,7 +107,7 @@ const createUser = async (
   email: string | undefined
 ) => {
   const user = await User.create({
-    name: userData.name,
+    name: userData.name ?? userData.login,
     userName: userData.login,
     gitHubId: userData.id,
     accessToken: accessEncryption(data.access_token),
