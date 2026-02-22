@@ -39,14 +39,20 @@ function showSuccess(data) {
   document.getElementById("success-streak-count").textContent = data.streak;
 }
 
+const REMINDER_SLOTS = ["09:00", "12:00", "15:00", "18:00", "21:00", "23:30"];
+
+function getNextLocalSlot() {
+  const now = new Date();
+  const current = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
+  return REMINDER_SLOTS.find((slot) => slot > current) ?? REMINDER_SLOTS[0];
+}
+
 function showPending(data) {
   hideAll();
   document.getElementById("pending-content").style.display = "flex";
   document.getElementById("pending-streak-count").textContent = data.streak;
-  if (data.time) {
-    document.querySelector(".pc-reminder").textContent =
-      `⏰ Reminder set for ${data.time}`;
-  }
+  document.querySelector(".pc-reminder").textContent =
+    `⏰ Reminder set for ${getNextLocalSlot()}`;
 }
 
 function showMain(data) {
