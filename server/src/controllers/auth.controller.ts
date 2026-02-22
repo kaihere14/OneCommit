@@ -89,6 +89,9 @@ export const gitCallback = async (req: Request, res: Response) => {
 
     const user = await User.findOne({ gitHubId: userData.id });
     if (user) {
+      await User.findByIdAndUpdate(user._id, {
+        accessToken: accessEncryption(data.access_token),
+      });
       const token = await createJwtToken(user._id.toString());
       return res.redirect(`http://localhost:3000/auth/success?token=${token}`);
     }
