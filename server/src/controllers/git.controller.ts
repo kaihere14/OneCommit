@@ -62,7 +62,7 @@ export const checkCommit = async (req: Request, res: Response) => {
       }
     }
 
-    const hasCommitToday = !commitDates.has(today);
+    const hasCommitToday = commitDates.has(today);
 
     let streak = 0;
     const date = new Date();
@@ -119,7 +119,7 @@ export const runCommitReminders = async () => {
           .map((e) => e.created_at.slice(0, 10))
       );
 
-      const hasCommitToday = false;
+      const hasCommitToday = pushDates.has(today);
 
       if (hasCommitToday) {
         await User.findByIdAndUpdate(user._id, { commitedToday: true });

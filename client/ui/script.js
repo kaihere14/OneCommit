@@ -1,4 +1,4 @@
-const API = "http://localhost:3000/api/v1";
+const API = "https://onecommit.onrender.com/api/v1";
 
 function getToken() {
   return new Promise((resolve) => {
@@ -59,7 +59,7 @@ function showMain(data) {
 }
 
 document.getElementById("login-btn").addEventListener("click", () => {
-  chrome.tabs.create({ url: `http://localhost:3000/api/v1/auth/git-login` });
+  chrome.tabs.create({ url: `${API}/auth/git-login` });
 });
 
 document.getElementById("sc-github-btn").addEventListener("click", () => {
