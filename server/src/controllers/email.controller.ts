@@ -136,6 +136,6 @@ export const sendEmail = async (
   if (error) {
     return { success: false, error };
   }
-
+  console.log("Email : ", email);
   return { success: true, data };
 };

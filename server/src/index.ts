@@ -5,6 +5,7 @@ import express from "express";
 import authRoutes from "./routes/auth.routes.js";
 import gitRoutes from "./routes/git.routes.js";
 import { connectDB } from "./utils/connectDB.js";
+import "./utils/worker.js";
 
 const app = express();
 const port = process.env.PORT || 3000;

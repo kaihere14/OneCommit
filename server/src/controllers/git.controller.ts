@@ -2,8 +2,8 @@ import axios from "axios";
 import type { Request, Response } from "express";
 
 import User, { type IUser } from "../models/user.routes.js";
+import { myQueue } from "../utils/queue.js";
 import { accessDecryption } from "./auth.controller.js";
-import { sendEmail } from "./email.controller.js";
 
 const REMINDER_SLOTS = ["09:00", "12:00", "15:00", "18:00", "21:00", "23:30"];
 
@@ -66,6 +66,9 @@ export const checkCommit = async (req: Request, res: Response) => {
 
     let streak = 0;
     const date = new Date();
+    if (!hasCommitToday) {
+      date.setUTCDate(date.getUTCDate() - 1);
+    }
     while (true) {
       const dateStr = date.toISOString().slice(0, 10);
       if (commitDates.has(dateStr)) {
@@ -100,6 +103,7 @@ export const runCommitReminders = async () => {
 
   const results = await Promise.allSettled(
     users.map(async (user) => {
+      console.log(user);
       const accessToken = accessDecryption(user.accessToken);
 
       const eventsRes = await axios.get<{ type: string; created_at: string }[]>(
@@ -122,6 +126,7 @@ export const runCommitReminders = async () => {
       const hasCommitToday = pushDates.has(today);
 
       if (hasCommitToday) {
+        console.log("already", user.email);
         await User.findByIdAndUpdate(user._id, { commitedToday: true });
         return { user: user.userName, status: "committed" };
       }
@@ -132,10 +137,11 @@ export const runCommitReminders = async () => {
       const currentMinute = new Date().toISOString().slice(0, 16);
 
       if (lastSent === currentMinute) {
+        console.log("skipped");
         return { user: user.userName, status: "skipped" };
       }
+      await myQueue.add("email", user);
 
-      await sendEmail(user.email, user.name, user.streak);
       await User.findByIdAndUpdate(user._id, {
         lastReminderSentAt: new Date(),
       });
